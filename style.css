@@ -59,7 +59,7 @@
 }
 
 .col-sm-4 > .card {
-  height: 30rem;
+  min-height: 30rem;
   & > img {
     object-fit: cover;
   }
@@ -80,4 +80,26 @@
 .translate-top-100 {
   transform: translateY(-100%);
   padding: 0 0.2rem;
+}
+
+.min-height-custom {
+  cursor: pointer;
+  &.h18 {
+    min-height: 18rem;
+  }
+  & > img {
+    height: 10rem !important;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.comment {
+  & ~ & {
+    margin-top: 2rem;
+  }
+  background-color: rgb(255, 250, 244);
+  & > p {
+    margin: 0 !important;
+  }
 }
