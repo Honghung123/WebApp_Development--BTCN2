@@ -3,7 +3,7 @@
 }
 
 .bg-toggle {
-  background-color: white !important;
+  background-color: white;
   border: 2px solid rgb(168, 168, 168);
   &.darks {
     background: black !important;
@@ -30,8 +30,12 @@
 
   &:hover {
     transform: scale(1.2);
+    z-index: 10;
     & > .title-movie {
       display: block !important;
+      & > p {
+        margin: 0 !important;
+      }
     }
   }
 }
@@ -84,6 +88,7 @@
 
 .min-height-custom {
   cursor: pointer;
+  height: 98%;
   &.h18 {
     min-height: 18rem;
   }
@@ -98,8 +103,15 @@
   & ~ & {
     margin-top: 2rem;
   }
-  background-color: rgb(255, 250, 244);
   & > p {
     margin: 0 !important;
+  }
+}
+
+.custom-text {
+  cursor: pointer;
+  font-weight: bold;
+  &:hover {
+    color: greenyellow;
   }
 }

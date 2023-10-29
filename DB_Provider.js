@@ -10,32 +10,32 @@ export const DBProvider = {
   getListDanhThu(movieList) {
     let list = [];
     movieList.forEach((movie) => {
-      list.push(movie.boxOffice.openingWeekendUSA);
+      list.push(movie.boxOffice.cumulativeWorldwideGross);
     });
     return list;
   },
   getMaxDanhThu(movieList, count) {
     const list = this.getListDanhThu(movieList);
-    const validDollarStrings = list.filter((str) => str.match(/^\$\d+/));
+    const validDollarStrings = list.filter((str) => str != "");
     // Bước 2: Chuyển các chuỗi đô la thành giá trị số
     const numericValues = validDollarStrings.map((str) =>
-      parseInt(str.replace("$", "").replace(",", ""))
+      parseFloat(str.replace("$", "").replaceAll(",", ""))
     );
     // Bước 3: Sắp xếp mảng số theo thứ tự giảm dần
     numericValues.sort((a, b) => b - a);
     // Bước 4: Lấy 3 giá trị lớn nhất
     const topDanhthu = numericValues.slice(0, count);
     let res = movieList.filter((movie) => {
-      let str = movie.boxOffice.openingWeekendUSA;
+      let str = movie.boxOffice.cumulativeWorldwideGross;
       return topDanhthu.includes(
-        parseInt(str.replace("$", "").replace(",", ""))
+        parseFloat(str.replace("$", "").replaceAll(",", ""))
       );
     });
     for (let i = 0; i < res.length - 1; i++) {
       for (let j = i; j < res.length; j++) {
         if (
-          res[i].boxOffice.openingWeekendUSA <
-          res[j].boxOffice.openingWeekendUSA
+          res[i].boxOffice.cumulativeWorldwideGross <
+          res[j].boxOffice.cumulativeWorldwideGross
         ) {
           let swap = res[i];
           res[i] = res[j];
@@ -48,15 +48,15 @@ export const DBProvider = {
   async fetch(query) {
     try {
       const movies = data.Movies;
-      console.log(movies);
       const reviews = data.Reviews;
-      console.log(reviews);
       const names = data.Names;
-      console.log(names);
       const top50 = data.Top50Movies;
-      console.log(top50);
       const mostpopularMovies = data.MostPopularMovies;
-      console.log(mostpopularMovies);
+      // console.log(movies);
+      // console.log(reviews);
+      console.log(names);
+      // console.log(top50);
+      // console.log(mostpopularMovies);
       // Phân tách tham số vào các phần riêng lẻ.
       let page = 1;
       let per_page = 1;
@@ -80,7 +80,7 @@ export const DBProvider = {
                 queryParam.title
                   .toLowerCase()
                   .includes(pattern.toLowerCase()) ||
-                queryParam.id.toLowerCase().includes(pattern.toLowerCase())
+                queryParam.id.includes(pattern)
             );
           } else if (className === "name") {
             items = names.filter(
@@ -129,13 +129,9 @@ export const DBProvider = {
       }
       if (type === "detail") {
         if (className === "movie") {
-          items = movies.filter((queryParam) =>
-            queryParam.id.toLowerCase().includes(rest.toLowerCase())
-          );
+          items = movies.filter((queryParam) => queryParam.id.includes(rest));
         } else if (className === "name") {
-          items = names.filter((queryParam) =>
-            queryParam.id.toLowerCase().includes(rest.toLowerCase())
-          );
+          items = names.filter((queryParam) => queryParam.id.includes(rest));
         } else if (className === "top50") {
           items = top50.filter((queryParam) =>
             queryParam.title.toLowerCase().includes(rest.toLowerCase())
