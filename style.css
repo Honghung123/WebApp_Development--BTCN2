@@ -97,6 +97,9 @@
     object-fit: cover;
     object-position: center;
   }
+  &.h30 > img {
+    height: 30rem !important;
+  }
 }
 
 .comment {

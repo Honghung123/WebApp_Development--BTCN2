@@ -20,6 +20,7 @@ export default {
       actorInfos: {},
       movieActorJoined: [],
       componentName: "vMain",
+      keySearchMovie: "",
     };
   },
   components: {
@@ -64,8 +65,11 @@ export default {
     showListMovie() {
       this.componentName = "vListMovie";
     },
-    searchKey(key = "", page = 1) {
-      let query = `search/movie/${key}?per_page=6&page=${page}`;
+    async searchKey(key = "", page = 1) {
+      // alert(key);
+      //this.quey = `search/movie/${key}?per_page=6&page=${page}`;
+      this.keySearchMovie = key;
+      this.showListMovie();
     },
     divideArrayObject(arr, size) {
       const result = [];
@@ -75,40 +79,30 @@ export default {
       return result;
     },
     async showMovieInfo(movieId) {
-      this.viewMovieInfoFunc();
       let query = `detail/movie/${movieId}`;
       this.movieInfo = await this.fetchApi(query);
       this.movieInfo = this.movieInfo.items[0];
+      this.viewMovieInfoFunc();
       console.log(this.movieInfo);
     },
     async showActorInfo(actorId) {
       let query = `detail/name/${actorId}`;
       this.actorInfos = await this.fetchApi(query);
       this.actorInfos = this.actorInfos.items[0];
-      this.getMovieJoined(this.actorInfos.castMovies);
+      try {
+        this.getMovieJoined(this.actorInfos.castMovies);
+      } catch (e) {
+        this.movieActorJoined = [];
+      }
       this.viewActorInfoFunc();
     },
     async getMovieJoined(movies) {
       let idList = [];
-      let movieIdList = [];
       movies.forEach((movie) => {
         idList.push(movie.id);
       });
-      idList.forEach(async (movie) => {
-        let query = `detail/movie/${movie}`;
-        const data = await this.fetchApi(query);
-        if (data.items[0] != undefined) {
-          movieIdList.push(data.items[0]);
-        }
-      });
-      this.movieActorJoined = movieIdList;
-      console.log(this.movieActorJoined);
+      this.movieActorJoined = idList;
     },
-  },
-  created() {
-    // this.fetchTopRankedMovieApi("get/top50/?per_page=24&page=1");
-    // this.fetchPopularMovieApi("get/mostpopular/?per_page=30&page=1");
-    // this.fetchTopIncomeMovieApi("get/topboxoffice/?per_page=5");
   },
   provide() {
     return {
@@ -130,6 +124,7 @@ export default {
       movieInfo: computed(() => this.movieInfo),
       actorInfos: computed(() => this.actorInfos),
       movieActorJoined: computed(() => this.movieActorJoined),
+      keySearchMovie: computed(() => this.keySearchMovie),
     };
   },
 

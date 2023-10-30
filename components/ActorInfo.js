@@ -1,10 +1,27 @@
 export default {
-  inject: ["actorInfos", "showMovieInfo", "movieActorJoined"],
+  inject: ["actorInfos", "showMovieInfo", "movieActorJoined", "fetchApi"],
   data() {
     const isExist = this.actorInfos != undefined;
     return {
       isExist,
+      incomeMovies: [],
+      isMovieJoined: false,
     };
+  },
+  methods: {
+    async getDataApi(array) {
+      array.forEach(async (mId) => {
+        const dataApi = await this.fetchApi(`detail/movie/${mId}`);
+        console.log(dataApi);
+        if (dataApi.items[0] != undefined) {
+          this.incomeMovies.push(dataApi.items[0]);
+          this.isMovieJoined = true;
+        }
+      });
+    },
+  },
+  created() {
+    this.getDataApi(this.movieActorJoined);
   },
   template: `
     <div class="actorInfo-detail bg-toggle" v-if="isExist" >
@@ -19,33 +36,19 @@ export default {
                     </div>
                     <div class="attendList">
                         <h4>Các phim đã tham gia:</h4>
-                        <div class="row row-gap-4">
-                            <div class="col-sm-4 mb-3 mb-sm-0" v-for="cast in movieActorJoined"> 
-                                <div class="card">
-                                    <img :src="cast.image"
+                        <div class="row row-gap-4" v-if="isMovieJoined">
+                            <div class="col-sm-4 mb-3 cursor" v-for="movie in incomeMovies" @click=showMovieInfo(movie.id)> 
+                                <div class="card min-height-custom h18">
+                                    <img :src="movie.image"
                                         class="card-img-top" alt="...">
                                     <div class="card-body text-center">
-                                        <h5 class="card-title">{{cast.title}}</h5>
-                                        <p class="card-text">{{cast}}</p>
+                                        <h5 class="card-title">{{movie.title}}</h5>
+                                        <p class="card-text">{{movie.year}}</p>
                                     </div>
                                 </div>
-                            </div>                             
+                            </div>                              
                         </div>
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <span class="page-link">Previous</span>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active" aria-current="page">
-                                    <span class="page-link">2</span>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <h4 v-else>No movie</h4>
                     </div>
                 </div>
             <h3 v-else>No actor info</h3>

@@ -40,13 +40,7 @@ export default {
                                 <p>Title: <span> Title comment </span></p>
                                 <p>This is his comment in here </p>
                                 <p>Date: <span>19 August 2022</span></p>
-                            </div>
-                            <div class="comment">
-                                <p>Username: <span>Aram Toshi</span> - Rating: <span>9</span></p>
-                                <p>Title: <span> Title comment </span></p>
-                                <p>This is his comment in here </p>
-                                <p>Date: <span>19 August 2022</span></p>
-                            </div>
+                            </div> 
                             <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                                 <ul class="pagination">
                                     <li class="page-item disabled">
