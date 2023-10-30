@@ -21,6 +21,7 @@ export default {
       movieActorJoined: [],
       componentName: "vMain",
       keySearchMovie: "",
+      movieReviewId: "",
     };
   },
   components: {
@@ -79,6 +80,7 @@ export default {
       return result;
     },
     async showMovieInfo(movieId) {
+      this.movieReviewId = movieId;
       let query = `detail/movie/${movieId}`;
       this.movieInfo = await this.fetchApi(query);
       this.movieInfo = this.movieInfo.items[0];
@@ -125,6 +127,7 @@ export default {
       actorInfos: computed(() => this.actorInfos),
       movieActorJoined: computed(() => this.movieActorJoined),
       keySearchMovie: computed(() => this.keySearchMovie),
+      movieReviewId: computed(() => this.movieReviewId),
     };
   },
 

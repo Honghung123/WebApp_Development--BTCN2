@@ -1,5 +1,24 @@
 export default {
-  inject: ["fetchApi", "movieInfo", "showActorInfo"],
+  inject: ["fetchApi", "movieInfo", "showActorInfo", "movieReviewId"],
+  data() {
+    return {
+      listReviews: {},
+      isHasReview: false,
+    };
+  },
+  methods: {
+    async getDataApi(key, page = 1) {
+      this.listReviews = {};
+      let query = `get/review/${key}?per_page=7&page=${page}`;
+      const dataApi = await this.fetchApi(query);
+      this.listReviews = dataApi;
+      this.isHasReview = this.listReviews.items.length > 0 ? true : false;
+      console.log(this.listReviews);
+    },
+  },
+  created() {
+    this.getDataApi(this.movieReviewId);
+  },
   template: `
          <div class="videoInfo-detail bg-toggle" v-if="movieInfo">
                     <h3 class="text-center p-2">Chi tiết movie </h3>
@@ -34,29 +53,31 @@ export default {
                     </div>
                     <div class="review p-lr bg-toggle">
                         <h4 class="text-start">Reviews</h4>
-                        <div class="comment-section">
-                            <div class="comment">
-                                <p>Username: <span>Aram Toshi</span> - Rating: <span>9</span></p>
-                                <p>Title: <span> Title comment </span></p>
-                                <p>This is his comment in here </p>
-                                <p>Date: <span>19 August 2022</span></p>
+                        <div class="comment-section" v-if="isHasReview">
+                            <div class="comment" v-for="user in listReviews.items">
+                                <p>Username: <span>{{user.username}}</span> - Rating: <span>{{user.rate}}</span></p>
+                                <p>Title: <span>{{user.title}}</span></p>
+                                <p>{{user.content}} </p>
+                                <p>Date: <span>{{user.date}}</span></p>
                             </div> 
                             <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                                 <ul class="pagination">
-                                    <li class="page-item disabled">
-                                        <span class="page-link">Previous</span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active" aria-current="page">
-                                        <span class="page-link">2</span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
                                     <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
+                        <span v-if="listReviews.page == 1" class="page-link">Previous</span>
+                        <a v-else @click="getDataApi(movieReviewId,listReviews.page-1)" class="page-link" href="#">Previous</a>                
+                    </li> 
+                    <li v-for="idx in listReviews.total_page" class="page-item" :class="{active : idx == listReviews.page}" >
+                        <span class="page-link" v-if="idx == listReviews.page" :aria-current="idx === listReviews.page ? 'page' : null">{{idx}}</span>
+                        <a @click="getDataApi(movieReviewId,idx)" class="page-link" href="#" v-else>{{idx}}</a>
+                    </li> 
+                    <li class="page-item">
+                        <span v-if="listReviews.page == listReviews.total_page" class="page-link">Next</span>
+                        <a v-else @click="getDataApi(movieReviewId,listReviews.page+1)" class="page-link" href="#">Next</a>
+                    </li>
                                 </ul>
                             </nav>
                         </div>
+                        <h3 v-else>Không có comment nào</h3>
                     </div>
                 </div>
                 <h3 v-else>No data</h3>
