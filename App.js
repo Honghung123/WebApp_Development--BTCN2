@@ -68,6 +68,7 @@ export default {
     },
     async searchKey(key = "", page = 1) {
       // alert(key);
+      this.viewHomePage();
       //this.quey = `search/movie/${key}?per_page=6&page=${page}`;
       this.keySearchMovie = key;
       this.showListMovie();
@@ -84,8 +85,7 @@ export default {
       let query = `detail/movie/${movieId}`;
       this.movieInfo = await this.fetchApi(query);
       this.movieInfo = this.movieInfo.items[0];
-      this.viewMovieInfoFunc();
-      console.log(this.movieInfo);
+      this.viewMovieInfoFunc(); 
     },
     async showActorInfo(actorId) {
       let query = `detail/name/${actorId}`;

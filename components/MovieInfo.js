@@ -13,7 +13,6 @@ export default {
       const dataApi = await this.fetchApi(query);
       this.listReviews = dataApi;
       this.isHasReview = this.listReviews.items.length > 0 ? true : false;
-      console.log(this.listReviews);
     },
   },
   created() {

@@ -42,8 +42,10 @@ export default {
                                     <img :src="movie.image"
                                         class="card-img-top" alt="...">
                                     <div class="card-body text-center">
-                                        <h5 class="card-title">{{movie.title}}</h5>
-                                        <p class="card-text">{{movie.year}}</p>
+                                        <h5 class="card-title">{{movie.fullTitle}}</h5>
+                                        <p class="card-text">Year: {{movie.year}} - Rating: {{movie.ratings.imDb}} - Length: {{movie.runtimeStr}}</p>
+                                        <p class="card-text">{{movie.plot}}</p>
+                                        <p class="card-text">Awards:{{movie.awards}}</p>
                                     </div>
                                 </div>
                             </div>                              

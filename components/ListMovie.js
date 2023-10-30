@@ -2,25 +2,24 @@ export default {
   inject: ["showMovieInfo", "keySearchMovie", "fetchApi"],
   data() {
     return {
-      isHasMovie: false,
+      isShown: false,
       listMovies: {},
     };
   },
   methods: {
     async getDataApi(key, page = 1) {
-      this.listMovies = {};
+      //   this.listMovies = {};
       let query = `search/movie/${key}?per_page=6&page=${page}`;
       const dataApi = await this.fetchApi(query);
       this.listMovies = dataApi;
-      this.isHasMovie = this.listMovies.items.length > 0 ? true : false;
-      console.log(this.listMovies);
+      this.isShown = this.listMovies.items.length > 0;
     },
   },
   created() {
     this.getDataApi(this.keySearchMovie);
   },
   template: `
-    <div class="list-movie border-0 cs-pointer bg-grays" v-if="isHasMovie">
+    <div class="list-movie border-0 cs-pointer bg-grays" v-if="isShown">
             <div class="row row-gap-4">
                 <div class="col-sm-4 mb-3" v-for="movie in listMovies.items" @click="showMovieInfo(movie.id)">
                     <div class="card min-height-custom h30">
@@ -32,7 +31,7 @@ export default {
                             <p class="card-text">Director: <span v-for="d in movie.directorList">{{d.name}}, </span></p>
                         </div>
                     </div>
-                </div>
+                </div> 
                 
             </div>
             <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">

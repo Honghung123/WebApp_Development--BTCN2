@@ -1,0 +1,53 @@
+Tên: Đàm Hồng Hưng  - 21120461
+
+- Đánh giá điểm: 12 điểm
+git log --graph -p > gitlog.txt
+✓ KHÔNG sử dụng VueJS :
+✓ Không sử dụng build tools. 
+✓ Có file gitlog.txt đủ thông tin. 
+✓ Không sử dụng thư viện khác ngoài bootstrap và jquery. 
+
+✓  Giao  diện cơ bản  với  bố  cục  và  các  thành  phần  yêu  cầu (chưa có dữ liệu movie, phải điền đủ các thông tin yêu cầu. 
+    Tự đánh giá : 1 điểm
+
+✓  thực hiện được chế độ Dark mode. 
+    Tự đánh giá : 1 điểm
+
+✓  hoàn thành module DB provider (hoặc DB Utility) với method fetch đáp  ứng  yêu  cầu.   
+    Tự đánh giá : 1 điểm
+
+✓   Danh  sách  5  Movie  có  doanh  thu  cao  nhất  hiển  thị  như yêu cầu (điều  hướng  chuyển  movie  dạng  slide)  với  các  thông  tin  cơ  bản:  poster, 
+    Tự đánh giá : 1 điểm
+
+✓  Danh sách 15~30  Movie phổ biến nhất hiển thị như yêu cầu (điều hướng chuyển trang dạng slide). 
+    Tự đánh giá : 1 điểm
+
+✓   hiệu  ứng highlight khi hover Movie như yêu cầu  (có  thêm  một  số thông tin). 
+    Tự đánh giá : 1 điểm
+
+     Danh  sách  15~30  Movie  thứ  hạng  cao  nhất  hiển  thị  như yêu cầu mà KHÔNG clone code. 
+    Tự đánh giá : 0 điểm
+
+✓  liên kết để chuyển sang xem chi tiết Movie ở bất kỳ Movie nào trên bất kỳ danh sách nào.
+    Tự đánh giá : 1 điểm
+
+✓  Thực hiện tìm kiếm Movie theo tên và hiển thị theo dạng CardView với các thông tin cơ bản: poster, title, rated, length,... 
+    Tự đánh giá : 1 điểm
+
+✓  Thực hiện tìm kiếm Movie theo Diễn viên 
+    Tự đánh giá : 0 điểm
+
+✓   Xem  chi  tiết  Movie,  cần  hiển  thị  được  hình  ảnh, tiêu đề, năm sản xuất, đạo diễn, tóm tắt, thông tin diễn viên, thể loại. 
+    Tự đánh giá : 1 điểm
+
+✓  Xem thông tin chi tiết diễn viên (nhấn liên kết từ tên diễn viên trong xem chi tiết Movie) cần hiển thị được hình ảnh, tên diễn viên, tiểu sử. Cần hiển  thị  thêm  được  danh  sách  Movie  diễn  viên  có  tham  gia  (dạng  danh sách có nhiều thông tin). 
+    Tự đánh giá : 1 điểm
+
+✓  Trong phần chi tiết Movie hiển thị được reviews cho Movie. 
+    Tự đánh giá : 1 điểm
+
+✓  Thực hiện được chức năng về Home và có hiệu ứng Loading. 
+    Tự đánh giá : 0.5 điểm
+
+✓  Có phân trang ở các danh sách: kết quả tìm kiếm, danh sách phim của diễn viên. 
+    Tự đánh giá : 0.5 điểm
